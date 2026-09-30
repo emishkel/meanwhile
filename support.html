@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Support · PocketMoment</title>
+<meta name="description" content="Help and answers for PocketMoment.">
+<meta property="og:title" content="Support · PocketMoment">
+<meta property="og:description" content="Help and answers for PocketMoment.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Instrument+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: one calm column; the hero pairs the pitch with a live "Got a moment?" demo. */
+:root {
+  --bg: #F5F3EE; --surface: #FFFFFF; --surface-2: #ECEAE4; --ink: #1C1C1E; --muted: #5F5F66;
+  --line: rgba(60, 60, 67, 0.14); --accent: #4F7A63; --accent-ink: #FFFFFF; --accent-soft: #E3ECE5;
+  --read: #B07A3B; --move: #C0634A; --mindful: #4F7A63; --connect: #4D6FA3; --language: #7A5A9E;
+  --display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --body: "Instrument Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --radius: 22px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0E0F0E; --surface: #1C1D1C; --surface-2: #262826; --ink: #F2F2F7; --muted: #A3A3AA;
+    --line: rgba(160, 160, 170, 0.22); --accent: #7FAE92; --accent-ink: #0E0F0E; --accent-soft: #1E2A23;
+    --read: #D9A466; --move: #E48C74; --mindful: #7FAE92; --connect: #86A6D6; --language: #B196D1;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0E0F0E; --surface: #1C1D1C; --surface-2: #262826; --ink: #F2F2F7; --muted: #A3A3AA;
+  --line: rgba(160, 160, 170, 0.22); --accent: #7FAE92; --accent-ink: #0E0F0E; --accent-soft: #1E2A23;
+  --read: #D9A466; --move: #E48C74; --mindful: #7FAE92; --connect: #86A6D6; --language: #B196D1;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink); font: 17px/1.6 var(--body);
+  padding-inline: 20px;
+}
+a { color: var(--accent); text-underline-offset: 3px; }
+a:focus-visible, button:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 8px; }
+.wrap { max-width: 1040px; margin-inline: auto; }
+.narrow { max-width: 680px; margin-inline: auto; }
+
+.nav { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 22px; }
+.brand { display: inline-flex; align-items: center; gap: 10px; font: 800 20px/1 var(--display); color: var(--ink); text-decoration: none; letter-spacing: -0.01em; }
+.brand-mark { width: 26px; height: 26px; position: relative; flex: none; }
+.brand-mark i { position: absolute; width: 5px; height: 5px; border-radius: 50%; background: var(--accent); }
+.nav-links { display: flex; gap: 18px; font-size: 15px; }
+.nav-links a { color: var(--muted); text-decoration: none; }
+.nav-links a:hover { color: var(--ink); }
+
+h1, h2, h3 { font-family: var(--display); letter-spacing: -0.02em; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(40px, 7vw, 68px); line-height: 1.02; font-weight: 800; }
+h2 { font-size: clamp(28px, 4vw, 38px); line-height: 1.1; font-weight: 800; }
+h3 { font-size: 20px; line-height: 1.25; font-weight: 600; letter-spacing: -0.01em; }
+p { margin: 0; }
+.eyebrow { font: 600 12px/1 var(--body); letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+.lede { font-size: 19px; color: var(--muted); max-width: 34ch; }
+
+.hero { display: grid; grid-template-columns: 1.05fr 1fr; gap: 48px; align-items: center; padding-block: 36px 72px; }
+.hero-copy { display: grid; gap: 22px; min-width: 0; }
+.launch { display: grid; gap: 6px; padding: 16px 18px; border: 1px dashed var(--line); border-radius: 16px; max-width: 30rem; }
+.launch strong { font-weight: 600; }
+.launch .email { font-weight: 600; color: var(--ink); user-select: all; word-break: break-all; }
+
+.demo { background: var(--surface); border-radius: 32px; padding: 26px; display: grid; gap: 18px; min-width: 0;
+  box-shadow: 0 1px 0 var(--line), 0 24px 60px -30px rgba(40, 60, 50, 0.35); }
+.demo-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+.demo-head h3 { font-size: 22px; }
+.times { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.time { appearance: none; border: 0; cursor: pointer; border-radius: 16px; padding: 12px 6px; background: var(--surface-2);
+  color: var(--ink); font: 700 20px/1.1 var(--display); display: grid; gap: 2px; transition: transform .12s ease, background .15s ease; }
+.time small { font: 500 12px/1 var(--body); color: var(--muted); }
+.time[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); }
+.time[aria-pressed="true"] small { color: inherit; opacity: .85; }
+.time:active { transform: scale(.97); }
+.card { display: grid; grid-template-columns: auto 1fr; gap: 18px; align-items: center; background: var(--bg);
+  border-radius: var(--radius); padding: 18px; min-height: 176px; }
+.card-body { display: grid; gap: 8px; min-width: 0; }
+.chip { justify-self: start; font: 600 13px/1 var(--body); padding: 7px 10px; border-radius: 999px;
+  background: color-mix(in srgb, var(--chip) 16%, transparent); color: var(--chip); }
+.card-title { font: 700 21px/1.2 var(--display); letter-spacing: -0.01em; }
+.card-detail { font-size: 15px; color: var(--muted); }
+.card-why { font-size: 14px; }
+.card-why b { color: var(--chip); font-weight: 600; }
+.ring { width: 92px; height: 92px; position: relative; flex: none; }
+.ring i { position: absolute; width: 6px; height: 6px; border-radius: 50%; background: var(--line); transition: background .25s ease; }
+.ring i.on { background: var(--chip, var(--accent)); }
+.ring span { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; font: 700 20px/1 var(--display); }
+.ring span small { font: 500 11px/1 var(--body); color: var(--muted); }
+.demo-foot { display: flex; justify-content: space-between; align-items: center; gap: 12px; font-size: 14px; color: var(--muted); }
+.shuffle { appearance: none; border: 1px solid var(--line); background: transparent; color: var(--ink); cursor: pointer;
+  border-radius: 999px; padding: 9px 14px; font: 600 14px/1 var(--body); white-space: nowrap; flex: none; }
+.shuffle:hover { background: var(--surface-2); }
+
+.section { padding-block: 64px; border-top: 1px solid var(--line); display: grid; gap: 32px; }
+.steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; counter-reset: step; }
+.step { display: grid; gap: 10px; align-content: start; min-width: 0; }
+.step::before { counter-increment: step; content: counter(step); width: 34px; height: 34px; border-radius: 50%;
+  display: grid; place-items: center; background: var(--accent-soft); color: var(--accent); font: 700 16px/1 var(--display); }
+.step p, .feature p { color: var(--muted); }
+.features { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+.feature { display: grid; grid-template-columns: auto 1fr; gap: 6px 16px; align-content: start; min-width: 0;
+  background: var(--surface); border-radius: var(--radius); padding: 22px; }
+.feature h3, .feature p { grid-column: 2; min-width: 0; }
+.feature strong { color: var(--ink); font-weight: 600; }
+.icon { grid-row: span 2; width: 44px; height: 44px; border-radius: 14px; display: grid; place-items: center;
+  background: color-mix(in srgb, var(--tone) 14%, transparent); color: var(--tone); }
+.icon svg { width: 22px; height: 22px; }
+.quote { font: 600 clamp(22px, 3vw, 28px)/1.3 var(--display); letter-spacing: -0.01em; max-width: 30ch; }
+.promise { background: var(--accent-soft); border-radius: 28px; padding: 36px; display: grid; gap: 12px; }
+.promise p { max-width: 58ch; }
+
+.footer { padding-block: 36px 48px; border-top: 1px solid var(--line); display: flex; flex-wrap: wrap; gap: 12px 24px;
+  justify-content: space-between; font-size: 14px; color: var(--muted); }
+.footer nav { display: flex; gap: 18px; }
+.footer a { color: var(--muted); }
+
+.doc { padding-block: 24px 72px; display: grid; gap: 28px; }
+.doc h1 { font-size: clamp(36px, 6vw, 52px); }
+.doc h2 { font-size: 24px; margin-top: 8px; }
+.doc section { display: grid; gap: 10px; }
+.doc ul { margin: 0; padding-left: 1.2em; display: grid; gap: 6px; }
+.doc .meta { color: var(--muted); font-size: 15px; }
+.tldr { background: var(--accent-soft); border-radius: 20px; padding: 20px 22px; display: grid; gap: 8px; }
+.faq { display: grid; gap: 12px; }
+details { background: var(--surface); border-radius: 18px; padding: 16px 20px; }
+summary { cursor: pointer; font-weight: 600; font-size: 17px; }
+details[open] summary { margin-bottom: 8px; }
+details p + p { margin-top: 8px; }
+.contact { background: var(--surface); border-radius: 22px; padding: 24px; display: grid; gap: 8px; }
+.contact .email { font: 700 20px/1.3 var(--display); user-select: all; word-break: break-all; }
+
+@media (max-width: 860px) {
+  .hero { grid-template-columns: 1fr; gap: 32px; padding-block: 16px 56px; }
+  .steps, .features { grid-template-columns: 1fr; }
+}
+@media (max-width: 440px) {
+  body { padding-inline: 16px; }
+  .demo { padding: 18px; border-radius: 26px; }
+  .card { grid-template-columns: 1fr; }
+  .times .time { font-size: 18px; }
+  .nav-links { gap: 14px; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="nav">
+  <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true"><i style="left:10.5px;top:0.0px;opacity:1"></i><i style="left:15.8px;top:1.4px;opacity:1"></i><i style="left:19.6px;top:5.2px;opacity:1"></i><i style="left:21.0px;top:10.5px;opacity:1"></i><i style="left:19.6px;top:15.7px;opacity:1"></i><i style="left:15.8px;top:19.6px;opacity:1"></i><i style="left:10.5px;top:21.0px;opacity:1"></i><i style="left:5.2px;top:19.6px;opacity:1"></i><i style="left:1.4px;top:15.8px;opacity:1"></i><i style="left:0.0px;top:10.5px;opacity:0.3"></i><i style="left:1.4px;top:5.2px;opacity:0.3"></i><i style="left:5.2px;top:1.4px;opacity:0.3"></i></span>PocketMoment</a>
+  <nav class="nav-links" aria-label="Site">
+    <a href="support.html">Support</a>
+    <a href="privacy.html">Privacy</a>
+  </nav>
+</header>
+
+<main class="narrow doc">
+  <div>
+    <p class="eyebrow">Support</p>
+    <h1>How can we help?</h1>
+    <p class="meta">Quick answers first. If you’re still stuck, email us and a real person will reply.</p>
+  </div>
+
+  <div class="faq">
+    <details open>
+      <summary>How do I get a suggestion?</summary>
+      <p>On the home screen, pick where you are (optional), then tap 1, 5, 15 or 30+ minutes. Swipe the card, or tap “Try another”, to see a different idea.</p>
+    </details>
+    <details>
+      <summary>My reminders or “time’s up” alerts aren’t showing.</summary>
+      <p>PocketMoment needs permission to send notifications. On iPhone, go to Settings → Notifications → PocketMoment and turn on Allow Notifications. Then choose a reminder time again in the app under Settings → Daily reminder.</p>
+      <p>Focus modes and Do Not Disturb can also hide them.</p>
+    </details>
+    <details>
+      <summary>How do I set up the doomscroll interceptor?</summary>
+      <p>In the app, open Settings → Doomscroll interceptor and follow the steps. In short: in Apple’s Shortcuts app, create an Automation for when Instagram, TikTok or another app is opened, set it to Run Immediately, and add an “Open URLs” action with the link shown in PocketMoment.</p>
+      <p>To pause it, switch the automation off in Shortcuts.</p>
+    </details>
+    <details>
+      <summary>How do I change my goals, interests or daily goal?</summary>
+      <p>Tap the gear on the home screen. “Goals, interests &amp; your stuff” changes what suggestions are drawn from, and “Daily goal” changes how many minutes fill your ring.</p>
+    </details>
+    <details>
+      <summary>Why don’t I see news headlines?</summary>
+      <p>Headlines appear on some reading moments when you’ve picked a matching interest (Markets &amp; finance, Business, Tech, World news, Science, History, Psychology, Philosophy, Travel or Sports) and you’re online. If a news source is slow or unavailable, you’ll see the regular links instead.</p>
+    </details>
+    <details>
+      <summary>Why did my streak reset?</summary>
+      <p>A streak counts days in a row with at least one completed moment. Missing a full day starts a fresh one. Your best streak is always saved on the progress screen.</p>
+    </details>
+    <details>
+      <summary>Will my progress move to a new phone?</summary>
+      <p>Not yet. Everything is stored only on your device, so deleting the app or switching phones starts fresh. Backup is on our list.</p>
+    </details>
+    <details>
+      <summary>How do I delete my data?</summary>
+      <p>In the app, go to Settings → Reset all data, or delete the app. We don’t hold any copy of your data. See the <a href="privacy.html">privacy policy</a>.</p>
+    </details>
+  </div>
+
+  <div class="contact">
+    <h2>Still need help?</h2>
+    <p>Email us with what happened and, if you can, a screenshot.</p>
+    <p class="email">YOUR-APP-EMAIL@example.com</p>
+  </div>
+</main>
+
+<footer class="footer">
+  <span>© 2026 PocketMoment</span>
+  <nav aria-label="Footer">
+    <a href="index.html">Home</a>
+    <a href="support.html">Support</a>
+    <a href="privacy.html">Privacy</a>
+  </nav>
+</footer>
+</div>
+
+</body>
+</html>

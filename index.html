@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>PocketMoment</title>
+<meta name="description" content="Turn spare minutes into small wins. PocketMoment suggests one quick thing you care about instead of scrolling.">
+<meta property="og:title" content="PocketMoment">
+<meta property="og:description" content="Turn spare minutes into small wins. PocketMoment suggests one quick thing you care about instead of scrolling.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Instrument+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: one calm column; the hero pairs the pitch with a live "Got a moment?" demo. */
+:root {
+  --bg: #F5F3EE; --surface: #FFFFFF; --surface-2: #ECEAE4; --ink: #1C1C1E; --muted: #5F5F66;
+  --line: rgba(60, 60, 67, 0.14); --accent: #4F7A63; --accent-ink: #FFFFFF; --accent-soft: #E3ECE5;
+  --read: #B07A3B; --move: #C0634A; --mindful: #4F7A63; --connect: #4D6FA3; --language: #7A5A9E;
+  --display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --body: "Instrument Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --radius: 22px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0E0F0E; --surface: #1C1D1C; --surface-2: #262826; --ink: #F2F2F7; --muted: #A3A3AA;
+    --line: rgba(160, 160, 170, 0.22); --accent: #7FAE92; --accent-ink: #0E0F0E; --accent-soft: #1E2A23;
+    --read: #D9A466; --move: #E48C74; --mindful: #7FAE92; --connect: #86A6D6; --language: #B196D1;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0E0F0E; --surface: #1C1D1C; --surface-2: #262826; --ink: #F2F2F7; --muted: #A3A3AA;
+  --line: rgba(160, 160, 170, 0.22); --accent: #7FAE92; --accent-ink: #0E0F0E; --accent-soft: #1E2A23;
+  --read: #D9A466; --move: #E48C74; --mindful: #7FAE92; --connect: #86A6D6; --language: #B196D1;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink); font: 17px/1.6 var(--body);
+  padding-inline: 20px;
+}
+a { color: var(--accent); text-underline-offset: 3px; }
+a:focus-visible, button:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 8px; }
+.wrap { max-width: 1040px; margin-inline: auto; }
+.narrow { max-width: 680px; margin-inline: auto; }
+
+.nav { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 22px; }
+.brand { display: inline-flex; align-items: center; gap: 10px; font: 800 20px/1 var(--display); color: var(--ink); text-decoration: none; letter-spacing: -0.01em; }
+.brand-mark { width: 26px; height: 26px; position: relative; flex: none; }
+.brand-mark i { position: absolute; width: 5px; height: 5px; border-radius: 50%; background: var(--accent); }
+.nav-links { display: flex; gap: 18px; font-size: 15px; }
+.nav-links a { color: var(--muted); text-decoration: none; }
+.nav-links a:hover { color: var(--ink); }
+
+h1, h2, h3 { font-family: var(--display); letter-spacing: -0.02em; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(40px, 7vw, 68px); line-height: 1.02; font-weight: 800; }
+h2 { font-size: clamp(28px, 4vw, 38px); line-height: 1.1; font-weight: 800; }
+h3 { font-size: 20px; line-height: 1.25; font-weight: 600; letter-spacing: -0.01em; }
+p { margin: 0; }
+.eyebrow { font: 600 12px/1 var(--body); letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+.lede { font-size: 19px; color: var(--muted); max-width: 34ch; }
+
+.hero { display: grid; grid-template-columns: 1.05fr 1fr; gap: 48px; align-items: center; padding-block: 36px 72px; }
+.hero-copy { display: grid; gap: 22px; min-width: 0; }
+.launch { display: grid; gap: 6px; padding: 16px 18px; border: 1px dashed var(--line); border-radius: 16px; max-width: 30rem; }
+.launch strong { font-weight: 600; }
+.launch .email { font-weight: 600; color: var(--ink); user-select: all; word-break: break-all; }
+
+.demo { background: var(--surface); border-radius: 32px; padding: 26px; display: grid; gap: 18px; min-width: 0;
+  box-shadow: 0 1px 0 var(--line), 0 24px 60px -30px rgba(40, 60, 50, 0.35); }
+.demo-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+.demo-head h3 { font-size: 22px; }
+.times { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.time { appearance: none; border: 0; cursor: pointer; border-radius: 16px; padding: 12px 6px; background: var(--surface-2);
+  color: var(--ink); font: 700 20px/1.1 var(--display); display: grid; gap: 2px; transition: transform .12s ease, background .15s ease; }
+.time small { font: 500 12px/1 var(--body); color: var(--muted); }
+.time[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); }
+.time[aria-pressed="true"] small { color: inherit; opacity: .85; }
+.time:active { transform: scale(.97); }
+.card { display: grid; grid-template-columns: auto 1fr; gap: 18px; align-items: center; background: var(--bg);
+  border-radius: var(--radius); padding: 18px; min-height: 176px; }
+.card-body { display: grid; gap: 8px; min-width: 0; }
+.chip { justify-self: start; font: 600 13px/1 var(--body); padding: 7px 10px; border-radius: 999px;
+  background: color-mix(in srgb, var(--chip) 16%, transparent); color: var(--chip); }
+.card-title { font: 700 21px/1.2 var(--display); letter-spacing: -0.01em; }
+.card-detail { font-size: 15px; color: var(--muted); }
+.card-why { font-size: 14px; }
+.card-why b { color: var(--chip); font-weight: 600; }
+.ring { width: 92px; height: 92px; position: relative; flex: none; }
+.ring i { position: absolute; width: 6px; height: 6px; border-radius: 50%; background: var(--line); transition: background .25s ease; }
+.ring i.on { background: var(--chip, var(--accent)); }
+.ring span { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; font: 700 20px/1 var(--display); }
+.ring span small { font: 500 11px/1 var(--body); color: var(--muted); }
+.demo-foot { display: flex; justify-content: space-between; align-items: center; gap: 12px; font-size: 14px; color: var(--muted); }
+.shuffle { appearance: none; border: 1px solid var(--line); background: transparent; color: var(--ink); cursor: pointer;
+  border-radius: 999px; padding: 9px 14px; font: 600 14px/1 var(--body); white-space: nowrap; flex: none; }
+.shuffle:hover { background: var(--surface-2); }
+
+.section { padding-block: 64px; border-top: 1px solid var(--line); display: grid; gap: 32px; }
+.steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; counter-reset: step; }
+.step { display: grid; gap: 10px; align-content: start; min-width: 0; }
+.step::before { counter-increment: step; content: counter(step); width: 34px; height: 34px; border-radius: 50%;
+  display: grid; place-items: center; background: var(--accent-soft); color: var(--accent); font: 700 16px/1 var(--display); }
+.step p, .feature p { color: var(--muted); }
+.features { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+.feature { display: grid; grid-template-columns: auto 1fr; gap: 6px 16px; align-content: start; min-width: 0;
+  background: var(--surface); border-radius: var(--radius); padding: 22px; }
+.feature h3, .feature p { grid-column: 2; min-width: 0; }
+.feature strong { color: var(--ink); font-weight: 600; }
+.icon { grid-row: span 2; width: 44px; height: 44px; border-radius: 14px; display: grid; place-items: center;
+  background: color-mix(in srgb, var(--tone) 14%, transparent); color: var(--tone); }
+.icon svg { width: 22px; height: 22px; }
+.quote { font: 600 clamp(22px, 3vw, 28px)/1.3 var(--display); letter-spacing: -0.01em; max-width: 30ch; }
+.promise { background: var(--accent-soft); border-radius: 28px; padding: 36px; display: grid; gap: 12px; }
+.promise p { max-width: 58ch; }
+
+.footer { padding-block: 36px 48px; border-top: 1px solid var(--line); display: flex; flex-wrap: wrap; gap: 12px 24px;
+  justify-content: space-between; font-size: 14px; color: var(--muted); }
+.footer nav { display: flex; gap: 18px; }
+.footer a { color: var(--muted); }
+
+.doc { padding-block: 24px 72px; display: grid; gap: 28px; }
+.doc h1 { font-size: clamp(36px, 6vw, 52px); }
+.doc h2 { font-size: 24px; margin-top: 8px; }
+.doc section { display: grid; gap: 10px; }
+.doc ul { margin: 0; padding-left: 1.2em; display: grid; gap: 6px; }
+.doc .meta { color: var(--muted); font-size: 15px; }
+.tldr { background: var(--accent-soft); border-radius: 20px; padding: 20px 22px; display: grid; gap: 8px; }
+.faq { display: grid; gap: 12px; }
+details { background: var(--surface); border-radius: 18px; padding: 16px 20px; }
+summary { cursor: pointer; font-weight: 600; font-size: 17px; }
+details[open] summary { margin-bottom: 8px; }
+details p + p { margin-top: 8px; }
+.contact { background: var(--surface); border-radius: 22px; padding: 24px; display: grid; gap: 8px; }
+.contact .email { font: 700 20px/1.3 var(--display); user-select: all; word-break: break-all; }
+
+@media (max-width: 860px) {
+  .hero { grid-template-columns: 1fr; gap: 32px; padding-block: 16px 56px; }
+  .steps, .features { grid-template-columns: 1fr; }
+}
+@media (max-width: 440px) {
+  body { padding-inline: 16px; }
+  .demo { padding: 18px; border-radius: 26px; }
+  .card { grid-template-columns: 1fr; }
+  .times .time { font-size: 18px; }
+  .nav-links { gap: 14px; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="nav">
+  <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true"><i style="left:10.5px;top:0.0px;opacity:1"></i><i style="left:15.8px;top:1.4px;opacity:1"></i><i style="left:19.6px;top:5.2px;opacity:1"></i><i style="left:21.0px;top:10.5px;opacity:1"></i><i style="left:19.6px;top:15.7px;opacity:1"></i><i style="left:15.8px;top:19.6px;opacity:1"></i><i style="left:10.5px;top:21.0px;opacity:1"></i><i style="left:5.2px;top:19.6px;opacity:1"></i><i style="left:1.4px;top:15.8px;opacity:1"></i><i style="left:0.0px;top:10.5px;opacity:0.3"></i><i style="left:1.4px;top:5.2px;opacity:0.3"></i><i style="left:5.2px;top:1.4px;opacity:0.3"></i></span>PocketMoment</a>
+  <nav class="nav-links" aria-label="Site">
+    <a href="support.html">Support</a>
+    <a href="privacy.html">Privacy</a>
+  </nav>
+</header>
+
+<main>
+<section class="hero">
+  <div class="hero-copy">
+    <p class="eyebrow">For the minutes you’d normally scroll</p>
+    <h1>Make the small moments count.</h1>
+    <p class="lede">In line, between meetings, on the train: PocketMoment turns a few spare minutes into one small thing you actually care about.</p>
+    <div class="launch">
+      <strong>Coming soon to the App Store.</strong>
+      <span>Want to try it early? Email <span class="email">YOUR-APP-EMAIL@example.com</span></span>
+    </div>
+  </div>
+
+  <div class="demo" aria-label="Try it: pick how long you have">
+    <div class="demo-head">
+      <h3>Got a moment?</h3>
+      <span class="eyebrow">Try it</span>
+    </div>
+    <div class="times" role="group" aria-label="How long do you have?">
+      <button class="time" type="button" data-min="1" aria-pressed="false">1<small>min</small></button>
+      <button class="time" type="button" data-min="5" aria-pressed="true">5<small>min</small></button>
+      <button class="time" type="button" data-min="15" aria-pressed="false">15<small>min</small></button>
+      <button class="time" type="button" data-min="30" aria-pressed="false">30+<small>min</small></button>
+    </div>
+    <article class="card" id="card" aria-live="polite" style="--chip: var(--move)">
+      <div class="ring" id="ring"><span id="ring-label">5<small>min</small></span></div>
+      <div class="card-body">
+        <span class="chip" id="chip">Move more</span>
+        <p class="card-title" id="title">Brisk walk around the block</p>
+        <p class="card-detail" id="detail">Walk briskly for five minutes — around the block, the building, or the hallway.</p>
+        <p class="card-why"><b>Why it helps:</b> <span id="why">Short walks lift energy and mood almost immediately.</span></p>
+      </div>
+    </article>
+    <div class="demo-foot">
+      <span>One of 168 activities, matched to your goals.</span>
+      <button class="shuffle" type="button" id="shuffle">Try another</button>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="how">
+  <p class="eyebrow">How it works</p>
+  <h2 id="how">Three taps, then put your phone down.</h2>
+  <div class="steps">
+    <div class="step"><h3>Pick what matters</h3><p>Choose two or three goals: read more, move more, be mindful, connect with people, or learn a language.</p></div>
+    <div class="step"><h3>Say how long you’ve got</h3><p>1, 5, 15 or 30+ minutes, and where you are. No squats suggested while you’re standing in line.</p></div>
+    <div class="step"><h3>Do one small thing</h3><p>Start the timer and pocket your phone. It buzzes when time’s up, and the minutes count toward your day.</p></div>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="features">
+  <p class="eyebrow">What’s inside</p>
+  <h2 id="features">Built to beat the scroll reflex.</h2>
+  <div class="features">
+    <div class="feature" style="--tone: var(--mindful)">
+      <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9" opacity=".35"/><circle cx="12" cy="12" r="4.5" fill="currentColor" stroke="none"/></svg></span>
+      <h3>Before you scroll…</h3>
+      <p>Hook it up to Instagram or TikTok with iPhone Shortcuts and PocketMoment opens first: <strong>one slow breath, then a better option.</strong> Keep scrolling if you want; the choice is yours.</p>
+    </div>
+    <div class="feature" style="--tone: var(--read)">
+      <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 5.5C4 4.7 4.7 4 5.5 4H11v16H5.5A1.5 1.5 0 0 1 4 18.5z"/><path d="M20 5.5c0-.8-.7-1.5-1.5-1.5H13v16h5.5c.8 0 1.5-.7 1.5-1.5z"/></svg></span>
+      <h3>Suggestions that know you</h3>
+      <p>Add <strong>the book you’re reading, the people you want to stay close to, and articles you’ve saved.</strong> “Read five pages of <em>Shoe Dog</em>” beats “read something.”</p>
+    </div>
+    <div class="feature" style="--tone: var(--accent)">
+      <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="3.5" r="1.6"/><circle cx="18" cy="6" r="1.6"/><circle cx="20.5" cy="12" r="1.6"/><circle cx="18" cy="18" r="1.6"/><circle cx="12" cy="20.5" r="1.6"/><circle cx="6" cy="18" r="1.6" opacity=".3"/><circle cx="3.5" cy="12" r="1.6" opacity=".3"/><circle cx="6" cy="6" r="1.6" opacity=".3"/></svg></span>
+      <h3>A ring worth filling</h3>
+      <p>Set a <strong>daily goal of 5 to 30 minutes</strong> and watch the ring fill. Streaks, a week at a glance, and small celebrations at 3, 7 and 30 days.</p>
+    </div>
+    <div class="feature" style="--tone: var(--connect)">
+      <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 5h5v5"/><path d="M19 5l-8 8"/><path d="M17 14v4.5c0 .8-.7 1.5-1.5 1.5h-10c-.8 0-1.5-.7-1.5-1.5v-10C4 7.7 4.7 7 5.5 7H10"/></svg></span>
+      <h3>Links that go somewhere</h3>
+      <p><strong>Poems of the day, guided meditations, short stories, workouts, language clips,</strong> picked around your interests so the next step is one tap away.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="math">
+  <p class="eyebrow">The math</p>
+  <p class="quote" id="math">Ten minutes a day is about 61 hours a year. That’s roughly a dozen books you could have read instead.</p>
+</section>
+
+<section class="section">
+  <div class="promise">
+    <h2>Private by design.</h2>
+    <p>No account, no ads, no tracking. Your goals, streaks and saved stuff live on your phone and nowhere else. <a href="privacy.html">Read the privacy policy</a>.</p>
+  </div>
+</section>
+</main>
+
+<footer class="footer">
+  <span>© 2026 PocketMoment</span>
+  <nav aria-label="Footer">
+    <a href="index.html">Home</a>
+    <a href="support.html">Support</a>
+    <a href="privacy.html">Privacy</a>
+  </nav>
+</footer>
+</div>
+<script>
+(function () {
+  var DATA = {"1": [{"goal": "read", "title": "Read one poem", "detail": "Pick a short poem and read it twice, slowly. Notice one line you like.", "why": "Poems are built for small gaps: a whole piece of writing in under a minute."}, {"goal": "mindful", "title": "Three slow breaths", "detail": "Breathe in for four counts, hold for four, out for six. Do it three times.", "why": "Long exhales tell your nervous system it’s safe to calm down."}, {"goal": "connect", "title": "Send a thinking-of-you text", "detail": "Text someone you haven’t talked to in a while: “Saw something that reminded me of you.”", "why": "Small check-ins keep friendships alive between big catch-ups."}, {"goal": "language", "title": "Learn one new word", "detail": "Pick one object near you and learn its name in your target language.", "why": "Words tied to real objects stick better."}], "5": [{"goal": "read", "title": "Read five pages", "detail": "Continue the book you’re in the middle of. Just five pages.", "why": "Five pages a day is about a dozen books a year."}, {"goal": "move", "title": "Brisk walk around the block", "detail": "Walk briskly for five minutes — around the block, the building, or the hallway.", "why": "Short walks lift energy and mood almost immediately."}, {"goal": "mindful", "title": "Box breathing", "detail": "In for four, hold for four, out for four, hold for four. Repeat for five minutes.", "why": "A simple, well-known way to steady yourself under pressure."}, {"goal": "connect", "title": "Send a voice note", "detail": "Record a short voice message to a friend instead of texting.", "why": "Your voice carries warmth that text can’t."}], "15": [{"goal": "read", "title": "Read a complete short story", "detail": "Find a short story online or in a collection and read it start to finish.", "why": "A whole story in one sitting is deeply satisfying."}, {"goal": "move", "title": "Bodyweight circuit", "detail": "Three rounds: 10 squats, 8 push-ups (knees are fine), 20-second plank, 10 lunges.", "why": "A real strength session, no equipment needed."}, {"goal": "mindful", "title": "Guided meditation", "detail": "Find a 15-minute guided meditation and follow it from start to finish.", "why": "Guidance makes it easier to stay with it."}, {"goal": "connect", "title": "Call a friend or relative", "detail": "Call someone you care about just to catch up. No agenda.", "why": "Hearing each other beats texting for real connection."}], "30": [{"goal": "read", "title": "Deep read, phone on silent", "detail": "Put your phone on Do Not Disturb, set a 30-minute timer, and read.", "why": "Deep focus gets easier the more you practice it."}, {"goal": "move", "title": "Go for a proper walk", "detail": "Head out for a 30-minute walk. Pick a direction you don’t normally go.", "why": "30 minutes of walking is a big chunk of the daily activity doctors recommend."}, {"goal": "connect", "title": "Coffee or a walk together", "detail": "Meet a friend or colleague for coffee or a walk.", "why": "Time together in person can’t be replaced."}, {"goal": "language", "title": "Watch an episode with subtitles", "detail": "Watch a show in your target language with target-language subtitles.", "why": "Hearing and reading at once speeds up listening skills."}]};
+  var LABEL = {"read": "Read more", "move": "Move more", "mindful": "Be mindful", "connect": "Connect with people", "language": "Learn a language"};
+  var current = { min: '5', i: 0 };
+  var ring = document.getElementById('ring');
+  var DOTS = 28, R = (92 - 6) / 2;
+  for (var i = 0; i < DOTS; i++) {
+    var a = i / DOTS * Math.PI * 2 - Math.PI / 2;
+    var d = document.createElement('i');
+    d.style.left = (R + R * Math.cos(a)) + 'px';
+    d.style.top = (R + R * Math.sin(a)) + 'px';
+    ring.insertBefore(d, ring.firstChild);
+  }
+  var dots = ring.querySelectorAll('i');
+  function fill(min) {
+    var frac = { '1': 0.25, '5': 0.5, '15': 0.75, '30': 1 }[min];
+    var n = Math.round(frac * DOTS);
+    for (var j = 0; j < DOTS; j++) dots[DOTS - 1 - j].classList.toggle('on', j < n);
+  }
+  function show() {
+    var list = DATA[current.min];
+    var s = list[current.i % list.length];
+    var card = document.getElementById('card');
+    card.style.setProperty('--chip', 'var(--' + s.goal + ')');
+    document.getElementById('chip').textContent = LABEL[s.goal];
+    document.getElementById('title').textContent = s.title;
+    document.getElementById('detail').textContent = s.detail;
+    document.getElementById('why').textContent = s.why;
+    document.getElementById('ring-label').innerHTML = (current.min === '30' ? '30+' : current.min) + '<small>min</small>';
+    fill(current.min);
+  }
+  document.querySelectorAll('.time').forEach(function (b) {
+    b.addEventListener('click', function () {
+      document.querySelectorAll('.time').forEach(function (o) { o.setAttribute('aria-pressed', o === b ? 'true' : 'false'); });
+      current.min = b.getAttribute('data-min');
+      current.i = 0;
+      show();
+    });
+  });
+  document.getElementById('shuffle').addEventListener('click', function () { current.i += 1; show(); });
+  var start = DATA['5'].findIndex(function (s) { return s.title === 'Brisk walk around the block'; });
+  current.i = start < 0 ? 0 : start;
+  show();
+})();
+</script>
+</body>
+</html>
